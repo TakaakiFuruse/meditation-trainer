@@ -1,0 +1,23 @@
+.racer_table td {
+  background-color: blue;
+  height: 60px;
+  width: 60px;
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  padding: 0px;
+}
+
+tr#player1_strip td.active {
+  background-color: black;
+  background-image: url('./mason.gif');
+}
+
+tr#player2_strip td.active {
+ background-color: red;
+ background-image: url('./takaaki_FLEX.gif');
+}
+
+.racer_table td.active {
+/*  background-color: red;*/
+}
+
