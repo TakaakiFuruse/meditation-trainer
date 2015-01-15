@@ -1,23 +1,15 @@
-.racer_table td {
-  background-color: blue;
-  height: 60px;
-  width: 60px;
-  border-left: 1px solid #000;
-  border-right: 1px solid #000;
-  padding: 0px;
+ul {
+    list-style: none;
 }
 
-tr#player1_strip td.active {
-  background-color: black;
-  background-image: url('./mason.gif');
+h1 {
+    font-size: 1.4em;
 }
 
-tr#player2_strip td.active {
- background-color: red;
- background-image: url('./takaaki_FLEX.gif');
+h2 {
+    font-size: 1em;
 }
 
-.racer_table td.active {
-/*  background-color: red;*/
+h3 {
+    font-size: 0.8em;
 }
-
