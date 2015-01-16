@@ -1,6 +1,5 @@
 "use strict";
 var $timer;
-
   
 function exercise (actionNum, actionArray){
   this.actionNum = actionNum;
@@ -34,19 +33,24 @@ exercise.prototype.stopTimeCount = function() {
 
 
 exercise.prototype.startTimer = function() {
-  //bind space as star
+// 1) bind this.keyBind as start key 
+// 2) unbind after it was pushed and bind the key as stop
   var self = this;
+
   Mousetrap.bind(self.keyBind, function() {
     self.countTime();
     Mousetrap.unbind(self.keyBind);
     Mousetrap.bind(self.keyBind, function () {
-     self.stopTimer();
+    self.stopTimer();
      });
   });
 };
 
 exercise.prototype.stopTimer = function() {
+// 1) bind stop key 
+// 2) re-bind the key as start key once timer was stopped 
   var self = this;
+
   self.stopTimeCount();
   Mousetrap.unbind(self.keyBind);
   self.startTimer();
