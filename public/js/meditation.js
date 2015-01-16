@@ -1,6 +1,7 @@
 "use strict";
 var $timer;
 
+  
 function exercise (actionNum, actionArray){
   this.actionNum = actionNum;
   this.actionArray = actionArray;
@@ -9,6 +10,8 @@ function exercise (actionNum, actionArray){
   this.averageTime = 0;
   this.longestTime = 0;
   this.shortestTime = 0;
+  this.keyBind = "space";
+  this.startTimer();
 }
 
 exercise.prototype.incrementTimes = function() {
@@ -16,31 +19,44 @@ exercise.prototype.incrementTimes = function() {
   return this.startTime;
 };
 
-exercise.prototype.startCount = function() {
+exercise.prototype.countTime = function() {
   var self = this;
   $timer = setInterval(function(){
     $("li.time h3").html(self.incrementTimes());
      }, 10);
 };
 
-exercise.prototype.stopCount = function() {
+exercise.prototype.stopTimeCount = function() {
   clearInterval($timer);
   this.endTime = this.startTime;
   return this.endTime;
 };
 
-exercise.prototype.showTime = function() {
-  // put jquery statement here....
+
+exercise.prototype.startTimer = function() {
+  //bind space as star
+  var self = this;
+  Mousetrap.bind(self.keyBind, function() {
+    self.countTime();
+    Mousetrap.unbind(self.keyBind);
+    Mousetrap.bind(self.keyBind, function () {
+     self.stopTimer();
+     });
+  });
 };
 
-exercise.prototype.sendActionData = function() {
-  // put Ajax statment here
+exercise.prototype.stopTimer = function() {
+  var self = this;
+  self.stopTimeCount();
+  Mousetrap.unbind(self.keyBind);
+  self.startTimer();
 };
 
-exercise.prototype.recieveActionData = function() {
-  // here comes Ajax too...
+
+exercise.prototype.communicateWithBackend = function() {
 };
 
 exercise.prototype.showActoinResult = function() {
   // put jquery statement here....
 };
+
