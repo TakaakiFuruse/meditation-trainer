@@ -1,4 +1,5 @@
 "use strict";
+var $timer;
 
 function exercise (actionNum, actionArray){
   this.actionNum = actionNum;
@@ -17,14 +18,13 @@ exercise.prototype.incrementTimes = function() {
 
 exercise.prototype.startCount = function() {
   var self = this;
-  var timer = setInterval(function(){
+  $timer = setInterval(function(){
     $("li.time h3").html(self.incrementTimes());
      }, 10);
 };
 
 exercise.prototype.stopCount = function() {
-  var self = this;
-  clearInterval(timer);
+  clearInterval($timer);
   this.endTime = this.startTime;
   return this.endTime;
 };
