@@ -22,7 +22,7 @@ function exercise (totalExcerciseNum, actionNameArray, breakTime){
 
 exercise.prototype.incrementTimes = function() {
   this.startTime += 1;
-  return this.startTime/this.decimals;
+  return (this.startTime/this.decimals).toFixed(2);
 };
 
 exercise.prototype.startTimeCount = function() {
@@ -40,8 +40,8 @@ exercise.prototype.stopTimeCount = function() {
 
 exercise.prototype.clearCountPushNum = function() {
   this.startTime = 0;
-  $(".previous_action h3").html(this.endTime);
-  $(".time h3").html("0");
+  $(".previous_action h3").html((this.endTime/this.decimals).toFixed(2));
+  $(".time h3").html("0.00");
 };
 
 
