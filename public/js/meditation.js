@@ -76,12 +76,22 @@ exercise.prototype.stopTimer = function() {
 };
 
 exercise.prototype.TimeDataToJSON = function() {
-  // exercise = {
-  //             nthExersice: 1, data: [name: yogafire, duration: 2.30min],
-  //             nthExersice: 2, data: [name: yogateleport, duration: 1.30min],
-  //             nthExersice: 3, data: [name: yogateleport, duration: 3.10min],
-  //             ......
-  //             }
+  $.ajax({
+    url: '/path/to/file',
+    type: 'default GET (Other values: POST)',
+    dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+    data: {param1: 'value1'},
+  })
+  .done(function() {
+    console.log("success");
+  })
+  .fail(function() {
+    console.log("error");
+  })
+  .always(function() {
+    console.log("complete");
+  });
+  
 };
 
 
