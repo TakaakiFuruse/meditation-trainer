@@ -1,15 +1,11 @@
 "use strict";
 var $timer;
 
-function exercise (totalExcerciseNum, actionNameArray, breakTime){
+function exercise (actionNameArray, breakTime){
   this.totalExcerciseNum = actionNameArray.length;
   this.actionNameArray = actionNameArray;
-
-  this.miliseconds = 100;
-  this.decimals = this.miliseconds/1000;
-  this.nowNthExcercise = 0;
-  this.startTime = 0*this.decimals;
-  
+  this.nowNthExercise = 0;
+  this.startTime = 0;
   this.endTime = 0;
   this.lastExerciseTime = 0;
   this.breakTime = 0;
@@ -22,27 +18,35 @@ function exercise (totalExcerciseNum, actionNameArray, breakTime){
 
 
 exercise.prototype.incrementTimes = function() {
-  this.startTime += 1;
-  return (this.startTime*this.decimals).toFixed(2);
+  return (this.startTime += 0.01).toFixed(2)
 };
 
 exercise.prototype.startTimeCount = function() {
   var self = this;
   $timer = setInterval(function(){
     $("li.time h3").html(self.incrementTimes());
-     }, self.miliseconds);
+     }, 10);
 };
 
 exercise.prototype.stopTimeCount = function() {
   clearInterval($timer);
   this.endTime = this.startTime;
-  // return this.endTime;
 };
 
 exercise.prototype.clearCountPushNum = function() {
+  $(".previous_action h3").html(this.endTime.toFixed(2));
   this.startTime = 0;
-  $(".previous_action h3").html((this.endTime*this.decimals).toFixed(2));
   $(".time h3").html("0.00");
+};
+
+
+exercise.prototype.showActionName = function() {
+  // body...
+
+   console.log(this.nowNthExcercise);
+   $(".action_name h3").html(this.actionNameArray[this.nowNthExercise]);
+   this.nowNthExercise += 1;
+   console.log(this.nowNthExercise);
 };
 
 
@@ -52,8 +56,8 @@ exercise.prototype.startTimer = function() {
   var self = this;
 
   Mousetrap.bind(self.keyBind, function() {
-    self.nowNthExcercise += 1
     self.startTimeCount();
+    self.showActionName();
     Mousetrap.unbind(self.keyBind);
     Mousetrap.bind(self.keyBind, function () {
     self.stopTimer();
@@ -64,12 +68,11 @@ exercise.prototype.startTimer = function() {
 exercise.prototype.stopTimer = function() {
 // 1) bind stop key 
 // 2) re-bind the key as start key once timer was stopped 
-  var self = this;
-  self.nowNthExcercise += 1
-  self.stopTimeCount();
-  Mousetrap.unbind(self.keyBind);
-  self.clearCountPushNum();
-  self.startTimer();
+  this.nowNthExcercise += 1
+  this.stopTimeCount();
+  Mousetrap.unbind(this.keyBind);
+  this.clearCountPushNum();
+  this.startTimer();
 };
 
 exercise.prototype.TimeDataToJSON = function() {
