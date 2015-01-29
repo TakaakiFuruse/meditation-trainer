@@ -6,13 +6,13 @@ function exercise (totalExcerciseNum, actionNameArray, breakTime){
   this.actionNameArray = actionNameArray;
 
   this.miliseconds = 100;
-  this.decimals = 1000/this.miliseconds;
+  this.decimals = this.miliseconds/1000;
   this.nowNthExcercise = 0;
-  this.startTime = 0;
+  this.startTime = 0*this.decimals;
+  
   this.endTime = 0;
   this.lastExerciseTime = 0;
   this.breakTime = 0;
-  
   this.averageTime = 0;
   this.longestTime = 0;
   this.shortestTime = 0;
@@ -20,9 +20,10 @@ function exercise (totalExcerciseNum, actionNameArray, breakTime){
   this.startTimer();
 }
 
+
 exercise.prototype.incrementTimes = function() {
   this.startTime += 1;
-  return (this.startTime/this.decimals).toFixed(2);
+  return (this.startTime*this.decimals).toFixed(2);
 };
 
 exercise.prototype.startTimeCount = function() {
@@ -40,7 +41,7 @@ exercise.prototype.stopTimeCount = function() {
 
 exercise.prototype.clearCountPushNum = function() {
   this.startTime = 0;
-  $(".previous_action h3").html((this.endTime/this.decimals).toFixed(2));
+  $(".previous_action h3").html((this.endTime*this.decimals).toFixed(2));
   $(".time h3").html("0.00");
 };
 
