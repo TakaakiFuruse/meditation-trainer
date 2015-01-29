@@ -10,17 +10,21 @@ gem 'sinatra-contrib'
 
 # Use Thin for our web server
 gem 'thin'
-
-gem 'activesupport', '~>4.1'
-gem 'activerecord', '~>4.1'
-gem 'bcrypt'
-
+gem 'activesupport'
+gem 'activerecord'
+gem 'actionview'
 gem 'rake'
-
-gem 'shotgun'
 gem 'pry'
+gem 'pry-byebug'
+gem 'shotgun'
+gem 'dotenv'
+gem 'bcrypt'
+gem 'json'
+gem 'carrierwave'
+gem 'railties'
 
 group :test do
   gem 'faker'
   gem 'rspec'
 end
+

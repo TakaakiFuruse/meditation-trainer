@@ -4,16 +4,16 @@ get '/welcome' do
   erb :'/index_login_welcome'
 end
 
-# play a game
-get '/racer' do
-  erb :'/racer'
+# do Action
+get '/exercise' do
+  erb :'/exercise'
 end
 
-get '/racer/results' do
-  @game_result = Game.create(params)
+get '/exercise/results' do
+  @action_result = Action.create(params)
 end
 
-get '/racer/scores' do
-  @all_result = Game.all
+get '/exercise/scores' do
+  @all_result = Action.all
   erb :'/score', :layout => false
 end
