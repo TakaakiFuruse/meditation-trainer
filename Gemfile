@@ -22,6 +22,7 @@ gem 'bcrypt'
 gem 'json'
 gem 'carrierwave'
 gem 'railties'
+gem 'shoulda-matchers'
 
 group :test do
   gem 'faker'

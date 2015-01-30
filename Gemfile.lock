@@ -85,6 +85,8 @@ GEM
     rspec-support (3.1.2)
     shotgun (0.9)
       rack (>= 1.0)
+    shoulda-matchers (2.7.0)
+      activesupport (>= 3.0.0)
     sinatra (1.4.5)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -126,6 +128,7 @@ DEPENDENCIES
   rake
   rspec
   shotgun
+  shoulda-matchers
   sinatra
   sinatra-contrib
   thin
