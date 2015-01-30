@@ -2,11 +2,10 @@
   <h1>Welcome  <%= @login_user.name %> !! </h1>
   <p>Hello!</p>
 
-      <p>Play JS Racer HERE!!</p><br>
+      <p>Start Exercise HERE!!</p><br>
       <form action="/racer" method="GET">
-        <input type="text" name="player1" value="player1 name" onClick="this.value=''">
-        <input type="text" name="player2" value="player2 name" onClick="this.value=''">
-        <input type="submit" value="Play a Game!!">
+        <input type="text" name="actions" value="actions" onClick="this.value=''">
+        <input type="submit" value="Start Exercise">
       </form>
 
       <a href="/logout">LOGOFF HERE!!</a>
