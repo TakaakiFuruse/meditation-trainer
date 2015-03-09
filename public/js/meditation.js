@@ -16,7 +16,6 @@ function exercise (actionNameArray, breakTime){
   this.startTimer();
 }
 
-
 exercise.prototype.incrementTimes = function() {
   return (this.startTime += 0.01).toFixed(2)
 };
@@ -33,20 +32,23 @@ exercise.prototype.stopTimeCount = function() {
   this.endTime = this.startTime;
 };
 
-exercise.prototype.clearCountPushNum = function() {
+exercise.prototype.clearTimeCount = function() {
   $(".previous_action h3").html(this.endTime.toFixed(2));
   this.startTime = 0;
   $(".time h3").html("0.00");
 };
 
-
 exercise.prototype.showActionName = function() {
-  // body...
-
-   console.log(this.nowNthExcercise);
-   $(".action_name h3").html(this.actionNameArray[this.nowNthExercise]);
-   this.nowNthExercise += 1;
-   console.log(this.nowNthExercise);
+   if (this.nowNthExercise == this.totalExcerciseNum) {
+     $(".action_name h3").html("DONE!!");
+     Mousetrap.unbind(this.keyBind);
+     clearInterval($timer);
+   }else{
+     $(".action_name h3").html(this.actionNameArray[this.nowNthExercise]);
+     this.nowNthExercise += 1;
+   };
+   console.log(this.totalExcerciseNum)
+   console.log("--------------------")
 };
 
 
@@ -57,47 +59,19 @@ exercise.prototype.startTimer = function() {
 
   Mousetrap.bind(self.keyBind, function() {
     self.startTimeCount();
-    self.showActionName();
     Mousetrap.unbind(self.keyBind);
     Mousetrap.bind(self.keyBind, function () {
     self.stopTimer();
      });
+    self.showActionName();
   });
 };
 
 exercise.prototype.stopTimer = function() {
 // 1) bind stop key 
 // 2) re-bind the key as start key once timer was stopped 
-  this.nowNthExcercise += 1
   this.stopTimeCount();
   Mousetrap.unbind(this.keyBind);
-  this.clearCountPushNum();
+  this.clearTimeCount();
   this.startTimer();
 };
-
-exercise.prototype.TimeDataToJSON = function() {
-  $.ajax({
-    url: '/path/to/file',
-    type: 'default GET (Other values: POST)',
-    dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
-    data: {param1: 'value1'},
-  })
-  .done(function() {
-    console.log("success");
-  })
-  .fail(function() {
-    console.log("error");
-  })
-  .always(function() {
-    console.log("complete");
-  });
-  
-};
-
-
-exercise.prototype.communicateWithBackend = function() {
-};
-
-exercise.prototype.showActoinResult = function() {
-};
-
