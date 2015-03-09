@@ -2,9 +2,12 @@
   <h1>Welcome  <%= @login_user.name %> !! </h1>
   <p>Hello!</p>
 
-      <p>Start Exercise HERE!!</p><br>
-      <form action="/exercise/start" method="GET">
-        <input type="text" name="actions" value="actions" onClick="this.value=''">
+      <p>Start your training here.</p><br>
+      <form action="/exercise" method="GET">
+        <p>Input names of your exercise/pose.</p>
+        <p>Ex: Yogaframe, Yogafire, Yogablast </p>
+        <input type="text" name="actions" value="actions" onClick="this.value=''"><br>
+        <br>
         <input type="submit" value="Start Exercise">
       </form>
 

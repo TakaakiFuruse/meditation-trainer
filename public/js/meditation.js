@@ -1,7 +1,7 @@
 "use strict";
 var $timer;
 
-function exercise (actionNameArray, breakTime){
+function exercise (actionNameArray){
   this.totalExcerciseNum = actionNameArray.length;
   this.actionNameArray = actionNameArray;
   this.nowNthExercise = 0;
@@ -47,16 +47,31 @@ exercise.prototype.showActionName = function() {
      $(".action_name h3").html(this.actionNameArray[this.nowNthExercise]);
      this.nowNthExercise += 1;
    };
-   console.log(this.totalExcerciseNum)
-   console.log("--------------------")
 };
 
+exercise.prototype.sendDataToServer = function() {
+  $.ajax({
+    url: '/exercise/results',
+    type: 'GET',
+    data: {"actionName" : "" + this.actionNameArray[this.nowNthExercise] + "", 
+            "actionTime" : "" + this.endTime + ""},
+  })
+  .done(function() {
+    console.log("success");
+  })
+  .fail(function() {
+    console.log("error");
+  })
+  .always(function() {
+    console.log("complete");
+  });
+  
+};
 
 exercise.prototype.startTimer = function() {
 // 1) bind this.keyBind as start key 
 // 2) unbind after it was pushed and bind the key as stop
   var self = this;
-
   Mousetrap.bind(self.keyBind, function() {
     self.startTimeCount();
     Mousetrap.unbind(self.keyBind);
@@ -71,6 +86,7 @@ exercise.prototype.stopTimer = function() {
 // 1) bind stop key 
 // 2) re-bind the key as start key once timer was stopped 
   this.stopTimeCount();
+  this.sendDataToServer;
   Mousetrap.unbind(this.keyBind);
   this.clearTimeCount();
   this.startTimer();

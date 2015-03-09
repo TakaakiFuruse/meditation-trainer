@@ -6,39 +6,23 @@ end
 
 # do Action
 get '/exercise' do
+  @new_game = Game.create(user_id: session[:user_id])
+  actions = params["actions"].split(", ")
+
+  actions.each do |each_action|
+    action = Action.create(name: each_action, 
+                  game_id: @new_game.id
+                  )
+  end
+
   erb :'/exercise'
 end
 
-get '/exercise/start' do
- # * get actions in params
- # * create action object from params, create game object
- # * store actions in variables 
- # * make associatoin, user << game , game << actions 
- # * send actions to JS in view
-
-#   new_game = Game.create()
-#   login_user = User.find(session[:user_id])
-#   exercises = params[:actions].split(" ")
-
-#   exercises_object_array = exercises.each do |exercise|
-#     Action.create(name: "#{action}")
-#   end
-
-
-#   login_user.games << new_game
-
-
-# (1..5).to_a.each do |n|
-#   Game.find(1).actions <<  Action.find(n) 
-# end
-
-#   new_game.actions << exercises
-
-#   binding.pry
-end
 
 get '/exercise/results' do
-  @action_result = Action.create(params)
+  action = Action.where({game_id: @new_game, 
+    name: params["actionName"]})
+  action.update(time: params["actionTime"])
 end
 
 get '/exercise/scores' do

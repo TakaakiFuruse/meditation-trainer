@@ -1,0 +1,56 @@
+
+<head>
+  <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/css/index.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/js/meditation.js"></script>
+  <script src="/js/mousetrap.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      var newExercise = new exercise(<%=  params["actions"].split(", ")%>);
+      newExercise.startTimer;
+    });
+  </script>
+</head>
+<body>
+
+<ul>
+  <div id="timer">
+
+    <li><h1>action time </h1></li>
+      <div class="bless_timer">
+         <li><h3>Action Name</h3></li>
+          <li class="action_name"><h3>  ---  </h3></li>
+          <li class="bless_type"><h3>Timer</h3></li>
+          <li class="time"><h3>0.00</h3></li>
+      </div>
+  </div>
+
+  <div id="result">
+
+      <li><h2>previous action</h2></li>
+        <div class="previous_action">
+            <li><h3>0.00</h3></li>
+        </div>
+
+
+      <li><h2>average length</h2></li>
+        <div class="average_action">
+            <li><h3>0.00</h3></li>
+        </div>
+
+      <li><h2>longest action</h2></li>
+        <div class="longest_action">
+            <li><h3>0.00</h3></li>
+        </div>
+
+      <li><h2>shortest action</h2></li>
+        <div class="shortest_action">
+            <li><h3>0.00</h3></li>
+        </div>
+  </div>
+</ul>
+
+</body>
+
+</table>
