@@ -32,6 +32,7 @@ exercise.prototype.stopTimeCount = function() {
   this.endTime = this.startTime;
 };
 
+
 exercise.prototype.clearTimeCount = function() {
   $(".previous_action h3").html(this.endTime.toFixed(2));
   this.startTime = 0;
@@ -53,8 +54,11 @@ exercise.prototype.sendDataToServer = function() {
   $.ajax({
     url: '/exercise/results',
     type: 'GET',
-    data: {"actionName" : "" + this.actionNameArray[this.nowNthExercise] + "", 
-            "actionTime" : "" + this.endTime + ""},
+    data: {
+     "actionName": "" + this.actionNameArray[this.nowNthExercise] + "",
+     "actionTime": "" + this.endTime.toFixed(2) + "",
+     "nthAction": this.nowNthExercise
+          }
   })
   .done(function() {
     console.log("success");
@@ -86,7 +90,7 @@ exercise.prototype.stopTimer = function() {
 // 1) bind stop key 
 // 2) re-bind the key as start key once timer was stopped 
   this.stopTimeCount();
-  this.sendDataToServer;
+  this.sendDataToServer();
   Mousetrap.unbind(this.keyBind);
   this.clearTimeCount();
   this.startTimer();
