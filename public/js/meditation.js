@@ -29,9 +29,8 @@ exercise.prototype.startTimeCount = function() {
 
 exercise.prototype.stopTimeCount = function() {
   clearInterval($timer);
-  this.endTime = this.startTime;
+  this.startTime = this.endTime;
 };
-
 
 exercise.prototype.clearTimeCount = function() {
   $(".previous_action h3").html(this.endTime.toFixed(2));
@@ -46,11 +45,14 @@ exercise.prototype.showActionName = function() {
      clearInterval($timer);
    }else{
      $(".action_name h3").html(this.actionNameArray[this.nowNthExercise]);
-     this.nowNthExercise += 1;
    };
 };
 
 exercise.prototype.sendDataToServer = function() {
+  console.log(this.actionNameArray[this.nowNthExercise])
+  console.log(this.startTime.toFixed(2))
+  console.log(this.endTime.toFixed(2))
+  console.log(this.nowNthExercise)
   $.ajax({
     url: '/exercise/results',
     type: 'GET',
@@ -77,12 +79,13 @@ exercise.prototype.startTimer = function() {
 // 2) unbind after it was pushed and bind the key as stop
   var self = this;
   Mousetrap.bind(self.keyBind, function() {
+    self.showActionName();
     self.startTimeCount();
     Mousetrap.unbind(self.keyBind);
+
     Mousetrap.bind(self.keyBind, function () {
-    self.stopTimer();
+      self.stopTimer();
      });
-    self.showActionName();
   });
 };
 
@@ -93,5 +96,6 @@ exercise.prototype.stopTimer = function() {
   this.sendDataToServer();
   Mousetrap.unbind(this.keyBind);
   this.clearTimeCount();
+  this.nowNthExercise += 1;
   this.startTimer();
 };

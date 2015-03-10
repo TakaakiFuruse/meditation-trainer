@@ -23,9 +23,9 @@ end
 
 
 get '/exercise/results' do
-  new_game = session[:current_game]
+  current_game = session[:current_game]
   action = Action.where({
-      game_id: new_game.id, 
+      game_id: current_game.id, 
       name: params["actionName"],
       nth_action: params["nthAction"].to_i
     })
@@ -33,6 +33,10 @@ get '/exercise/results' do
 end
 
 get '/exercise/scores' do
+  current_game_id = session[:current_game].id
+
+  action = Action.find_by(game_id: current_game.id)
+
 
   erb :'/score', :layout => false
 end
