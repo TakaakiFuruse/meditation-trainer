@@ -29,7 +29,7 @@ exercise.prototype.startTimeCount = function() {
 
 exercise.prototype.stopTimeCount = function() {
   clearInterval($timer);
-  this.startTime = this.endTime;
+  this.endTime = this.startTime;
 };
 
 exercise.prototype.clearTimeCount = function() {
@@ -94,8 +94,8 @@ exercise.prototype.stopTimer = function() {
 // 2) re-bind the key as start key once timer was stopped 
   this.stopTimeCount();
   this.sendDataToServer();
-  Mousetrap.unbind(this.keyBind);
   this.clearTimeCount();
+  Mousetrap.unbind(this.keyBind);
   this.nowNthExercise += 1;
   this.startTimer();
 };
