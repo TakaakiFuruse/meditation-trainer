@@ -32,11 +32,15 @@ get '/exercise/results' do
   action.first.update(time: params["actionTime"])
 end
 
-get '/exercise/scores' do
-  current_game_id = session[:current_game].id
+get '/scores' do
+  actions = Action.where(game_id: session[:current_game].id)
 
-  action = Action.find_by(game_id: current_game.id)
+  time_arr = actions.map {|n| n.time.to_f.round(2)}
+  time_arr.reject!{|n| n == 0}
+  avg = ((time_arr.inject {|avg, n| avg.round + n})/(time_arr.length)).round(2)
+  longest = time_arr.sort[-1]
+  shortest = time_arr.sort[0]
+  content_type :json
 
-
-  erb :'/score', :layout => false
+  {avg: avg, longest: longest, shortest: shortest}.to_json
 end

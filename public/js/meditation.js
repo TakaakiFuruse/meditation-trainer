@@ -49,10 +49,6 @@ exercise.prototype.showActionName = function() {
 };
 
 exercise.prototype.sendDataToServer = function() {
-  console.log(this.actionNameArray[this.nowNthExercise])
-  console.log(this.startTime.toFixed(2))
-  console.log(this.endTime.toFixed(2))
-  console.log(this.nowNthExercise)
   $.ajax({
     url: '/exercise/results',
     type: 'GET',
@@ -74,18 +70,37 @@ exercise.prototype.sendDataToServer = function() {
   
 };
 
+exercise.prototype.recieveDataFromServer = function() {
+  $.ajax({
+    url: '/scores',
+    dataType: 'json',
+    type: 'GET'
+  })
+  .done(function(json) {
+    $(".average_action li h3").html(json["avg"])
+    $(".longest_action li h3").html(json["longest"])
+    $(".shortest_action li h3").html(json["shortest"])
+  })
+  .fail(function() {
+    console.log("error");
+  })
+  .always(function() {
+    console.log("complete");
+  });
+  
+};
+
 exercise.prototype.startTimer = function() {
 // 1) bind this.keyBind as start key 
 // 2) unbind after it was pushed and bind the key as stop
   var self = this;
   Mousetrap.bind(self.keyBind, function() {
-    self.showActionName();
     self.startTimeCount();
     Mousetrap.unbind(self.keyBind);
-
     Mousetrap.bind(self.keyBind, function () {
       self.stopTimer();
      });
+    self.showActionName();
   });
 };
 
@@ -94,6 +109,7 @@ exercise.prototype.stopTimer = function() {
 // 2) re-bind the key as start key once timer was stopped 
   this.stopTimeCount();
   this.sendDataToServer();
+  this.recieveDataFromServer();
   this.clearTimeCount();
   Mousetrap.unbind(this.keyBind);
   this.nowNthExercise += 1;

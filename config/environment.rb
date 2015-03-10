@@ -18,6 +18,7 @@ require 'pry'
 require 'pry-byebug'
 require 'sinatra'
 require "sinatra/reloader" if development?
+require 'json'
 
 require 'erb'
 
