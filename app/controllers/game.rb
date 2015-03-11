@@ -1,6 +1,7 @@
 
 #user welcome
-get '/welcome' do
+get '/welcome' do  
+
   @login_user = User.find(session[:user_id])
   erb :'/index_login_welcome'
 end
@@ -33,13 +34,16 @@ get '/exercise/results' do
 end
 
 get '/scores' do
-  actions = Action.where(game_id: session[:current_game].id)
+  action_objects = Action.where(game_id: session[:current_game].id)
 
-  time_arr = actions.map {|n| n.time.to_f.round(2)}
-  time_arr.reject!{|n| n == 0}
-  avg = ((time_arr.inject {|avg, n| avg.round + n})/(time_arr.length)).round(2)
-  longest = time_arr.sort[-1]
-  shortest = time_arr.sort[0]
+  time_array = to_time_array(action_objects)
+
+  scores = DoTheMath.new(time_array)
+  
+  avg = scores.average
+  longest = scores.longest
+  shortest = scores.shortest
+
   content_type :json
 
   {avg: avg, longest: longest, shortest: shortest}.to_json
