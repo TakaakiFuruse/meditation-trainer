@@ -1,5 +1,6 @@
 require 'rake'
 
+
 require ::File.expand_path('../config/environment', __FILE__)
 
 # Include all of ActiveSupport's core class extensions, e.g., String#camelize
@@ -23,9 +24,9 @@ namespace :generate do
     puts "Creating #{model_path}"
     File.open(model_path, 'w+') do |f|
       f.write(<<-EOF.strip_heredoc)
-      class #{model_name} < ActiveRecord::Base
-        # Remember to create a migration!
-      end
+        class #{model_name} < ActiveRecord::Base
+          # Remember to create a migration!
+        end
       EOF
     end
   end
@@ -47,10 +48,10 @@ namespace :generate do
     puts "Creating #{path}"
     File.open(path, 'w+') do |f|
       f.write(<<-EOF.strip_heredoc)
-      class #{name} < ActiveRecord::Migration
-        def change
+        class #{name} < ActiveRecord::Migration
+          def change
+          end
         end
-      end
       EOF
     end
   end
@@ -72,14 +73,14 @@ namespace :generate do
     puts "Creating #{path}"
     File.open(path, 'w+') do |f|
       f.write(<<-EOF.strip_heredoc)
-      require 'spec_helper'
+        require 'spec_helper'
 
-      describe #{name} do
-      pending "add some examples to (or delete) #{__FILE__}"
+        describe #{name} do
+          pending "add some examples to (or delete) #{__FILE__}"
+        end
+      EOF
     end
-    EOF
   end
-end
 
 end
 
@@ -125,10 +126,8 @@ end
 
 desc 'Start IRB with application environment loaded'
 task "console" do
+  # exec "irb -r./config/environment"
   exec "pry -r./config/environment"
 end
 
-desc "Run the specs"
-RSpec::Core::RakeTask.new(:spec)
-
-task :default  => :specs
+task :default  => :spec
