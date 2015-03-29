@@ -21,6 +21,7 @@ gem 'dotenv'
 gem 'bcrypt'
 gem 'json'
 gem 'railties'
+gem 'rails_12factor'
 gem 'shoulda-matchers'
 
 group :test do
